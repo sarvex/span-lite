@@ -32,14 +32,14 @@ def versionFrom( filename ):
     """Obtain version from  conanfile.py"""
     with open( filename ) as f:
         content = f.read()
-        version = re.search(r'version\s=\s"(.*)"', content).group(1)
+        version = re.search(r'version\s=\s"(.*)"', content)[1]
     return version
 
 def createConanPackage( args ):
     """Create conan package and upload it."""
     cmd = tpl_conan_create.format(usr=args.user, chn=args.channel)
     if args.verbose:
-        print( "> {}".format(cmd) )
+        print(f"> {cmd}")
     if not args.dry_run:
         subprocess.call( cmd, shell=False )
 
@@ -47,7 +47,7 @@ def uploadConanPackage( args ):
     """Create conan package and upload it."""
     cmd = tpl_conan_upload.format(prj=args.project, usr=args.user, chn=args.channel, ver=args.version)
     if args.verbose:
-        print( "> {}".format(cmd) )
+        print(f"> {cmd}")
     if not args.dry_run:
         subprocess.call( cmd, shell=False )
 

@@ -94,14 +94,14 @@ def versionFrom( filename ):
     """Obtain version from CMakeLists.txt"""
     with open( filename, 'r' ) as f:
         content = f.read()
-        version = re.search(r'VERSION\s(\d+\.\d+\.\d+)', content).group(1)
+        version = re.search(r'VERSION\s(\d+\.\d+\.\d+)', content)[1]
     return version
 
 def descriptionFrom( filename ):
     """Obtain description from CMakeLists.txt"""
     with open( filename, 'r' ) as f:
         content = f.read()
-        description = re.search(r'DESCRIPTION\s"(.*)"', content).group(1)
+        description = re.search(r'DESCRIPTION\s"(.*)"', content)[1]
     return description if description else cfg_vcpkg_description
 
 def vcpkgRootFrom( path ):
@@ -190,16 +190,17 @@ def createVcpkgFromCommandLine():
         '--description',
         metavar='d',
         type=str,
-#       default=cfg_description,
-        default=descriptionFrom( cfg_cmakelists ),
-        help='vcpkg description [from ' + cfg_cmakelists + ']')
+        default=descriptionFrom(cfg_cmakelists),
+        help=f'vcpkg description [from {cfg_cmakelists}]',
+    )
 
     parser.add_argument(
         '--version',
         metavar='v',
         type=str,
-        default=versionFrom( cfg_cmakelists ),
-        help='version number [from ' + cfg_cmakelists + ']')
+        default=versionFrom(cfg_cmakelists),
+        help=f'version number [from {cfg_cmakelists}]',
+    )
 
     parser.add_argument(
         '--sha',

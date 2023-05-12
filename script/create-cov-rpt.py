@@ -43,7 +43,7 @@ def createCoverageReport( f, args ):
         format( usr=args.user, prj=args.project, file=f ) )
     cmd = tpl_coverage_cmd.format( folder=executable_folder(f), src=project_folder(f, args), exe=executable_name(f) )
     if args.verbose:
-        print( "> {}".format(cmd) )
+        print(f"> {cmd}")
     if not args.dry_run:
         os.chdir( executable_folder(f) )
         subprocess.call( cmd, shell=False )

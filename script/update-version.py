@@ -77,7 +77,7 @@ def editFileToVersion( version, info, verbose ):
     """Update version given file path, version regexp and new version format in info"""
     major, minor, patch = version.split('.')
     in_path, ver_re, ver_fmt = info
-    out_path = in_path + '.tmp'
+    out_path = f'{in_path}.tmp'
     new_text = ver_fmt.format( major=major, minor=minor, patch=patch )
 
     if verbose:
